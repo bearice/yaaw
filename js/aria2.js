@@ -78,7 +78,7 @@ if (typeof ARIA2=="undefined"||!ARIA2) var ARIA2=(function(){
 
     return {
         init: function(path) {
-            jsonrpc_interface = path || "http://"+(location.host.split(":")[0]||"localhost")+":6800"+"/jsonrpc";
+            jsonrpc_interface = path || "http://"+(location.protocol != "chrome-extension:" && location.host.split(":")[0] || "localhost")+":6800"+"/jsonrpc";
             $.jsonRPC.setup({endPoint: jsonrpc_interface, namespace: 'aria2'});
         },
 

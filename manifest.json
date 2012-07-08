@@ -1,0 +1,24 @@
+{
+  "name": "YaaW",
+  "description": "Yet Another Aria2 Web front",
+  "version": "0.1",
+  "default_locale": "en",
+  "background_page": "background.html",
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  },
+  "icons": {
+    "16": "img/aria.png",
+    "24": "img/aria.png",
+    "128": "img/aria.png"
+  },
+  "permissions": [
+    "<all_urls>",
+    "unlimitedStorage",
+    "notifications",
+    "contextMenus",
+    "tabs"
+  ]
+}
