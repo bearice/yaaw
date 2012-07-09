@@ -621,6 +621,21 @@ var YAAW = (function() {
 })();
 YAAW.init();
 if(chrome && chrome.extension){
+    chrome.tabs.getCurrent(function(curTab){
+        chrome.tabs.query({url:location.toString()},function(tabs){
+            console.info(curTab);
+            for(idx in tabs){
+                tab = tabs[idx];
+                if(tab.id != curTab.id){
+                    console.info(tab);
+                    chrome.tabs.update(tab.id, {active: true} , function(){
+                        chrome.tabs.remove(curTab.id);
+                    });
+                    return;
+                } 
+            }
+        });
+    });
     $(function(){
         chrome.extension.onMessage.addListener(function(msg){
             msg.prototype = YAAW.setting.add_task_option
