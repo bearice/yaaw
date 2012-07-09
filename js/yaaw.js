@@ -296,7 +296,7 @@ var YAAW = (function() {
                     uri = (uri == "") ? uri : uri.split("\n");
                 }
                 // var uri = $("#uri-input").val() || $("#uri-textarea").val().split("\n");
-                var options = {}, options_save = {};
+                var options = {}, options_save = YAAW.setting.add_task_option;
                 $("#add-task-option input[name]").each(function(i, n) {
                     var name = n.getAttribute("name");
                     var value = (n.type == "checkbox" ? n.checked : n.value);
@@ -308,6 +308,10 @@ var YAAW = (function() {
                     }
                 });
 
+                options['header'] = $("#ati-header").val().split('\n');
+                if($("#ati-header").hasClass("input-save")){
+                    options_save['header'] = $("#ati-header").val();
+                }
                 if (uri) {
                     ARIA2.madd_task(uri, options);
                 } else if (torrent_file) {
@@ -318,6 +322,7 @@ var YAAW = (function() {
                     }
                 }
                 YAAW.setting.save_add_task_option(options_save);
+                $("#add-task-option-wrap").empty().append(YAAW.tpl.add_task_option(options_save));
             },
             
             clean: function() {
@@ -615,3 +620,15 @@ var YAAW = (function() {
     }
 })();
 YAAW.init();
+if(chrome && chrome.extension){
+    $(function(){
+        chrome.extension.onMessage.addListener(function(msg){
+            msg.prototype = YAAW.setting.add_task_option
+            msg.options.header = msg.options.headers.join("\n");
+            $("#add-task-option-wrap").empty().append(YAAW.tpl.add_task_option(msg.options));
+            $("#ati-header").removeClass("input-save");
+            $("#uri-input").val(msg.uri);
+            $("#add-task-btn").click();
+        });
+    });
+}

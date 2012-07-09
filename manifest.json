@@ -1,6 +1,6 @@
 {
   "name": "YaaW",
-  "description": "Yet Another Aria2 Web front",
+  "description": "Yet Another Aria2 Web frontend for Chrome",
   "version": "0.1",
   "default_locale": "en",
   "background_page": "background.html",
@@ -19,6 +19,7 @@
     "unlimitedStorage",
     "notifications",
     "contextMenus",
-    "tabs"
+    "tabs",
+    "cookies"
   ]
 }

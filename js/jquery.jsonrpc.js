@@ -170,7 +170,7 @@
           type: 'POST',
           async: false !== options.async,
           dataType: 'json',
-          //contentType: 'application/json',
+          contentType: 'application/json',
           url: this._requestUrl(options.url),
           data: data,
           cache: false,
