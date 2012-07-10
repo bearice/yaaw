@@ -6,21 +6,29 @@ BackgroundTasks = (function() {
 
   BackgroundTasks.prototype.init = function() {
     var _this = this;
-    return chrome.contextMenus.create({
+    chrome.contextMenus.create({
       title: "Download link with Aria2",
       contexts: ["link"],
       onclick: function(info, tab) {
         return _this.downloadLink(info, tab);
       }
     });
+    return chrome.contextMenus.create({
+      title: "Download %s with Aria2",
+      contexts: ["link"],
+      onclick: function(info, tab) {
+        return _this.downloadLink(info, tab, info.selectionText);
+      }
+    });
   };
 
-  BackgroundTasks.prototype.downloadLink = function(info, tab) {
+  BackgroundTasks.prototype.downloadLink = function(info, tab, filename) {
     var jobOptions,
       _this = this;
     jobOptions = {
       headers: ['Referer: ' + tab.url, 'User-Agent: ' + window.navigator.userAgent]
     };
+    if (filename) jobOptions.filename = filename;
     return chrome.cookies.getAll({
       url: info.linkUrl
     }, function(cookies) {

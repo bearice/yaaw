@@ -642,6 +642,7 @@ if(chrome && chrome.extension){
             msg.options.header = msg.options.headers.join("\n");
             $("#add-task-option-wrap").empty().append(YAAW.tpl.add_task_option(msg.options));
             $("#ati-header").removeClass("input-save");
+            $("#ati-out").val(msg.options.filename);
             $("#uri-input").val(msg.uri);
             $("#add-task-btn").click();
         });

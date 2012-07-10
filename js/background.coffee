@@ -4,13 +4,21 @@ class BackgroundTasks
             title    : "Download link with Aria2",
             contexts : ["link"],
             onclick  : (info,tab)=> @downloadLink(info,tab)
+
+        chrome.contextMenus.create
+            title    : "Download %s with Aria2",
+            contexts : ["link"],
+            onclick  : (info,tab)=> @downloadLink(info,tab,info.selectionText)
+
             
-    downloadLink: (info,tab)->
+    downloadLink: (info,tab,filename)->
         jobOptions =
             headers:[
                 'Referer: ' + tab.url,
                 'User-Agent: ' + window.navigator.userAgent
             ]
+
+        jobOptions.filename = filename if filename
         chrome.cookies.getAll
             url: info.linkUrl,
             (cookies)=>
